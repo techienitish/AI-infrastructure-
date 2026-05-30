@@ -1,0 +1,24 @@
+Curriculum that are highly relevant to your profile and will be asked in your system design interviews:
+
+🏗️ 1. Agent Production Systems & Infrastructure
+This is your primary domain. When an agent runs autonomously, it can crash infrastructure or burn through cloud budgets in minutes.
+
+Latency, Caching, and Cost Optimization: How to implement semantic caching (like GPTCache) so agents don’t call the LLM API for identical, repetitive reasoning steps.
+
+Handling State and Long-Running Workflows: Agents aren't stateless web apps; they have "memory" and take time to complete tasks. You need to know how to manage stateful containers using orchestration tools like Temporal or Ray.
+
+Rate Limiting & Token Throttling: Guarding your infrastructure against an agent that gets stuck in an infinite "reasoning loop" and drains your enterprise API budget or hits provider rate limits.
+
+🗄️ 2. Agentic RAG Architecture
+Standard RAG just fetches documents once. Agentic RAG dynamically decides what to search, when to search, and how to rewrite queries.
+
+Dynamic Scaling of Vector DBs: Because agents make multiple iterative queries, your vector databases (like Qdrant or Milvus) will experience massive, unpredictable spikes in read traffic. You need to know how to scale read-replicas for vector indices dynamically.
+
+Data Ingestion Pipelines: Ensuring data streaming pipelines keep the vector database updated in real-time so the agent isn't reasoning based on stale data.
+
+📊 3. Observability & Reliability in Agent Workflows
+Traditional APM tools (Datadog, New Relic) cannot trace an agent's multi-step decision process.
+
+Distributed LLM Tracing: Mastering tools like OpenInference, LangSmith, or Arize Phoenix. You must know how to set up infrastructure that tracks a single user request across 10 different sub-agent tool calls and loops.
+
+Fallback & Self-Healing Infrastructure: If an LLM API provider goes down or times out mid-task, how does your infrastructure handle routing traffic to a backup local open-source model (e.g., via vLLM) seamlessly?
