@@ -1,0 +1,160 @@
+To become a rockstar AI Infrastructure and MLOps Engineer in 90 days, you cannot just learn abstract machine learning concepts; you must master the **systems engineering, compute bottlenecks, and deployment pipelines** that keep AI models running efficiently.
+
+This day-by-day roadmap assumes you already understand basic DevOps tools (Docker, CI/CD, basic Linux administration, and foundational Kubernetes). Each day is a concrete, standalone topic designed to build a production-grade engineering mindset.
+
+---
+
+## 📅 Month 1: Compute, Storage, & Data Infrastructure
+
+*The focus is on the hardware layer, data ingestion, and specialized AI databases.*
+
+### Week 1: GPU Architecture & Hardware Orchestration
+
+* **Day 1:** CPU vs. GPU vs. TPU vs. ASIC – Core architectural differences for AI workloads.
+* **Day 2:** NVIDIA Architecture – CUDA cores, Tensor Cores, and VRAM memory bandwidth.
+* **Day 3:** Driver & Runtime Setup – Installing NVIDIA Drivers, NVML, and NVIDIA Container Toolkit.
+* **Day 4:** Multi-Instance GPU (MIG) – Partitioning a single physical GPU into multiple virtual GPUs.
+* **Day 5:** Multi-GPU Interconnects – NVLink, NVSwitch, and PCIe bottleneck troubleshooting.
+* **Day 6:** InfiniBand vs. RoCE – High-speed networking for distributed AI training clusters.
+* **Day 7:** Weekly Review – Write a script to monitor GPU temperature, memory utilization, and power consumption.
+
+### Week 2: Specialized Storage for Massive Datasets
+
+* **Day 8:** AI Storage Dilemma – Small file bottlenecks (millions of images/text tokens) vs. sequential throughput.
+* **Day 9:** MinIO Object Storage – Setting up high-performance, distributed, self-hosted S3 object storage.
+* **Day 10:** Data Version Control (DVC) – Linking Git commits to large data files stored in S3/MinIO.
+* **Day 11:** Lakehouse Architectures – Understanding Apache Iceberg and Delta Lake storage layers.
+* **Day 12:** Parallel File Systems – Introduction to Lustre and WekaIO for petabyte-scale training.
+* **Day 13:** Data Caching – Implementing Alluxio or JuicedFS to cache remote data locally on training nodes.
+* **Day 14:** Weekly Review – Build a pipeline where changing a Git commit auto-pulls the matching version of a dataset via DVC.
+
+### Week 3: Vector Databases & Retrieval Infrastructure
+
+* **Day 15:** Embeddings 101 – What vector embeddings are and why traditional relational databases fail to index them.
+* **Day 16:** Vector Indexing Algorithms – HNSW (Hierarchical Navigable Small World) vs. IVF-PQ (Inverted File with Product Quantization).
+* **Day 17:** Pinecone & Managed Vector DBs – Provisioning and scaling cloud-native vector infrastructure.
+* **Day 18:** Milvus / Qdrant – Deploying distributed, self-hosted vector databases on Kubernetes.
+* **Day 19:** Pgvector – Extending PostgreSQL for vector workloads and identifying scale limitations.
+* **Day 20:** Database Partitioning & Sharding – Scaling vector indices across multi-node clusters.
+* **Day 21:** Weekly Review – Benchmark the query latency difference between an unindexed vector search and an HNSW indexed search.
+
+### Week 4: Automated Data Engineering Pipelines
+
+* **Day 22:** Feature Stores – Core concepts of Feast: Online (low-latency) vs. Offline (historical) feature retrieval.
+* **Day 23:** Apache Airflow for Data – Setting up DAGs to pull, clean, and format raw data for AI.
+* **Day 24:** Prefect / Temporal – Exploring modern code-as-configuration alternatives to Airflow.
+* **Day 25:** Ray Data – Ingesting and streaming datasets at scale for distributed applications.
+* **Day 26:** ETL Security – Sanitizing data pipelines, detecting PII (Personally Identifiable Information), and compliance checking.
+* **Day 27:** Data Drift Detection – Setting up automated data quality validation using Great Expectations.
+* **Day 28:** Weekly Review – Build an Airflow DAG that processes a raw text file, generates embeddings, and inserts them into Qdrant.
+
+---
+
+## 📅 Month 2: Model Management, Orchestration, & MLOps Core
+
+*The focus is on managing the experiment lifecycle, scaling model training, and mastering Kubernetes for AI.*
+
+### Week 5: Experiment Tracking & Model Registries
+
+* **Day 29:** MLflow Setup – Deploying an MLflow tracking server with a remote database backend and S3 artifact store.
+* **Day 30:** Logging Parameters & Artifacts – Interfacing code scripts with MLflow to log hyperparameters, metrics, and weight plots.
+* **Day 31:** Weights & Biases (W&B) – Utilizing W&B for team collaboration, interactive charts, and system resource tracking.
+* **Day 32:** The Model Registry – Understanding the transition states of a model (Staging, Production, Archived).
+* **Day 33:** Model Lineage – Mapping a production model backward to its exact training dataset, code version, and hyperparameter configuration.
+* **Day 34:** Open-Source Hubs – Interfacing and downloading base models programmatically from Hugging Face.
+* **Day 35:** Weekly Review – Train a basic model, log its run to MLflow, register it, and tag it as `Staging`.
+
+### Week 6: Kubernetes for AI (Cloud-Native MLOps)
+
+* **Day 36:** K8s Device Plugins – Configuring the NVIDIA Device Plugin to allow pods to request `nvidia.com/gpu`.
+* **Day 37:** Volcano / Kube-batch – Advanced scheduling for batch jobs, queue management, and fair-share scheduling.
+* **Day 38:** K0s / MicroK8s for Local AI – Setting up a local, lightweight cluster optimized for AI experimentation.
+* **Day 39:** Node Affinity & Tolerations – Isolating expensive GPU nodes so standard web pods don't accidentally schedule on them.
+* **Day 40:** Cluster Autoscaler – Configuring AWS/GCP cluster autoscalers to spin up GPU nodes on-demand and scale to zero when idle.
+* **Day 41:** Karpenter – Modern, high-speed node provisioning designed specifically for diverse GPU instance pools.
+* **Day 42:** Weekly Review – Deploy a Kubernetes cluster that spins up a GPU node only when a specific job requests a GPU, then terminates it afterwards.
+
+### Week 7: Kubeflow & Training Orchestration
+
+* **Day 43:** Kubeflow Architecture – Installing and exploring the core components of the Kubeflow platform.
+* **Day 44:** Kubeflow Pipelines (KFP) – Writing Python-based components to orchestrate multi-step ML jobs.
+* **Day 45:** TFJob & PyTorchJob – Running native distributed training operators via Kubeflow Training Operator.
+* **Day 46:** Data Ingestion in KFP – Mounting Persistent Volumes (PVs) and Object Storage paths efficiently to training pods.
+* **Day 47:** Hyperparameter Tuning (Katib) – Orchestrating automated parallel tuning algorithms (Random Search, Bayesian optimization).
+* **Day 48:** Argo Workflows – Designing cloud-native workflow engines underneath the hood of your MLOps stack.
+* **Day 49:** Weekly Review – Create a 3-stage Kubeflow pipeline: 1. Download data, 2. Train model using a PyTorchJob, 3. Register model on success.
+
+### Week 8: Distributed Training Infrastructure
+
+* **Day 50:** Distributed Data Parallel (DDP) – Core concepts of splitting data across multiple GPUs.
+* **Day 51:** Model Parallelism & Tensor Parallelism – Splitting massive models across GPUs when they cannot fit into a single VRAM card.
+* **Day 52:** PyTorch Fully Sharded Data Parallel (FSDP) – Deep dive into sharding weights, gradients, and optimizer states.
+* **Day 53:** DeepSpeed – Implementing ZeRO (Zero Redundancy Optimizer) configurations for ultra-large models.
+* **Day 54:** Ray Train – Running distributed compute clusters outside of traditional Kubernetes configurations.
+* **Day 55:** Fault-Tolerant Training – Setting up automated checkpointing and recovery frameworks for long-running training jobs.
+* **Day 56:** Weekly Review – Launch a mock 2-node distributed training job using Ray or PyTorch Elastic, simulate a node failure, and observe auto-recovery.
+
+---
+
+## 📅 Month 3: Inference, LLMOps, Optimization, & Production Observability
+
+*The focus is on serving models with ultra-low latency, running LLMs at scale, and keeping cloud costs under control.*
+
+### Week 9: Production Model Inference & Serving
+
+* **Day 57:** Inference Engines vs. Web Frameworks – Why Flask/FastAPI are terrible for model inference at scale.
+* **Day 58:** Triton Inference Server – Setting up NVIDIA Triton to serve multiple frameworks (PyTorch, ONNX, TensorRT) concurrently.
+* **Day 59:** Dynamic Batching – Configuring serving engines to group incoming real-time requests to maximize GPU throughput.
+* **Day 60:** Model Compilers: TensorRT & ONNX – Optimizing and compiling models to cut latency by up to 5x.
+* **Day 61:** KServe / Seldon Core – Deploying cloud-native serverless inference platforms on Kubernetes.
+* **Day 62:** Canary Deployments for AI – Setting up Istio or Linkerd to route 5% of live traffic to a new model version to test accuracy.
+* **Day 63:** Weekly Review – Deploy an optimized ONNX model on Triton Inference Server with dynamic batching turned on.
+
+### Week 10: LLMOps (Large Language Models in Production)
+
+* **Day 64:** LLM Serving Challenges – Understanding Autoregressive generation, Time-to-First-Token (TTFT), and Inter-Token Latency.
+* **Day 65:** vLLM – Deploying an open-source LLM (e.g., Llama 3) utilizing PagedAttention to optimize memory.
+* **Day 66:** TGI (Text Generation Inference) – Exploring Hugging Face’s highly optimized production LLM stack.
+* **Day 67:** Model Quantization Standards – Deep dive into AWQ, GPTQ, and GGUF to shrink models from 16-bit to 4-bit precision.
+* **Day 68:** RAG Infrastructure – Building production scaffolding to connect text extraction, chunking, vector indexing, and LLM APIs.
+* **Day 69:** Multi-LoRA Serving – Serving hundreds of custom, fine-tuned models on a single base LLM engine without reloading weights.
+* **Day 70:** Weekly Review – Host a quantized Llama model using vLLM on Kubernetes, measuring the TTFT and total requests handled per second.
+
+### Week 11: Monitoring, Observability, & AI Guardrails
+
+* **Day 71:** Prometheus & Grafana for AI – Scraping specific hardware metrics (NVIDIA DCGM metrics) and inference metrics.
+* **Day 72:** Tracing LLM Apps – Setting up OpenInference Tracing and LangSmith/Arize Phoenix to see exactly where a prompt stalls.
+* **Day 73:** LLM Cost Monitoring – Building dashboards to calculate token consumption, pricing, and cost per user request.
+* **Day 74:** Concept Drift & Accuracy Monitoring – Monitoring system inputs for semantic drift over time using tools like Evidently AI.
+* **Day 75:** NeMo Guardrails – Implementing programmatic validation walls to prevent jailbreaks, prompt injections, and profanity.
+* **Day 76:** Llama Guard – Running content moderation models in your pipeline to inspect both user inputs and model outputs.
+* **Day 77:** Weekly Review – Create a Grafana dashboard that visualizes concurrent user requests, total token spend, and average GPU VRAM temperature.
+
+### Week 12: FinOps, AI Security, & GitOps Automation
+
+* **Day 78:** FinOps for AI – Analyzing spot instance strategies, autoscaling delays, and pricing models across cloud providers.
+* **Day 79:** Model Supply Chain Security – Scanning model weights for malware or malicious code execution (e.g., switching pickle files to Safetensors).
+* **Day 80:** RBAC & IAM for AI Assets – Limiting access to sensitive datasets, API tokens, and production model registries.
+* **Day 81:** Local AI Agents for DevOps – Integrating toolkits like Claude Code or Cursor into your pipeline for self-healing error logs.
+* **Day 82:** GitOps for AI – Implementing ArgoCD to handle deployments of model infrastructure configurations.
+* **Day 83:** CI/CD for Models (CT Pipelines) – Setting up continuous training pipelines that trigger automatically on data drift notifications.
+* **Day 84:** Comprehensive System Architecture Review – Designing an end-to-end cloud infrastructure topology for enterprise AI.
+
+---
+
+## 🏁 The Final Stretch: Days 85–90 (The Capstone Project)
+
+To prove you are a rockstar, spend the final 6 days building **one comprehensive portfolio project**:
+
+* **The Goal:** Build a fully automated, self-healing, auto-scaling LLM application infrastructure.
+* **Requirements:**
+1. Deploy a multi-node Kubernetes cluster.
+2. Use **Karpenter** or **Cluster Autoscaler** to provision spot GPU nodes on demand.
+3. Serve an open-source model using **vLLM** with **NVIDIA DCGM monitoring** enabled.
+4. Expose the endpoint securely behind an Ingress controller with **NeMo Guardrails** checking inputs.
+5. Collect all system metrics, token counts, and request traces into a centralized **Grafana dashboard**.
+6. Document the entire project on GitHub with clear architecture diagrams.
+
+
+
+Do you have access to a cloud platform with GPU availability (like AWS, GCP, or a specialized provider like Lambda Labs/RunPod) to practice these exercises, or will you be starting with local simulations?
